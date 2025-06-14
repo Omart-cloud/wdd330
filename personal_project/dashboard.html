@@ -18,6 +18,18 @@
     </nav>
   </header>
   <main>
+    <section id="search-filter">
+      <h2>Search Listings</h2>
+      <form id="searchForm">
+        <input type="text" id="searchTitle" placeholder="Title" />
+        <input type="text" id="searchLocation" placeholder="Location" />
+        <input type="number" id="minPrice" placeholder="Min Price" />
+        <input type="number" id="maxPrice" placeholder="Max Price" />
+        <button type="submit">Search</button>
+        <button type="button" id="resetFilter">Reset</button>
+      </form>
+    </section>
+    
     <section id="listings">
       <h2>Your Listings</h2>
       <div id="listingContainer">
