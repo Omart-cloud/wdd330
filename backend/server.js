@@ -1,5 +1,3 @@
-// backend/server.js
-
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
@@ -33,7 +31,7 @@ const saveData = (file, data) => {
 let listings = loadData("listings.json");
 let chatMessages = loadData("chat.json");
 
-// Multer setup for image + document upload
+// Multer setup for image + document uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = "uploads";
@@ -62,8 +60,12 @@ app.post("/api/listings", upload.fields([
     return res.status(400).json({ message: "Missing required listing data." });
   }
 
-  const imagePaths = (req.files["images"] || []).map(file => `http://localhost:${PORT}/uploads/${file.filename}`);
-  const documentPaths = (req.files["documents"] || []).map(file => `http://localhost:${PORT}/uploads/${file.filename}`);
+  const imagePaths = (req.files["images"] || []).map(file =>
+    `http://localhost:${PORT}/uploads/${file.filename}`
+  );
+  const documentPaths = (req.files["documents"] || []).map(file =>
+    `http://localhost:${PORT}/uploads/${file.filename}`
+  );
 
   const newListing = {
     id: Date.now(),
@@ -98,7 +100,7 @@ app.post("/api/chat", (req, res) => {
 
   const message = {
     text,
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   };
 
   chatMessages.push(message);

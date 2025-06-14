@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const price = document.getElementById("price").value;
     const description = document.getElementById("description").value;
     const images = document.getElementById("images").files;
+    const documents = document.getElementById("documents")?.files;
 
     try {
-      // Use Google Geocoding API to get coordinates
       const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=AIzaSyDutwVT6uumkw42B2OptviTvRYViaR8ohQ`;
       const geoRes = await fetch(geocodeUrl);
       const geoData = await geoRes.json();
@@ -40,6 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("description", description);
       for (let img of images) {
         formData.append("images", img);
+      }
+      for (let doc of documents) {
+        formData.append("documents", doc);
       }
 
       const response = await fetch("http://localhost:3000/api/listings", {
@@ -85,13 +88,27 @@ document.addEventListener("DOMContentLoaded", () => {
         <p><strong>Location:</strong> ${listing.location}</p>
         <p><strong>Price:</strong> ₦${listing.price}</p>
         <p>${listing.description}</p>
+
         ${listing.images?.map(img => `<img src="${img}" alt="property" width="200">`).join("") || ""}
+
+        ${listing.documents?.length ? `
+          <div class="docs">
+            <strong>Documents:</strong>
+            <ul>
+              ${listing.documents.map(doc => `
+                <li><a href="${doc}" target="_blank">View Document</a></li>
+              `).join("")}
+            </ul>
+          </div>
+        ` : ""}
+
         <p><a href="property.html?lat=${listing.latitude}&lng=${listing.longitude}" target="_blank">View on Map</a></p>
       `;
       listingContainer.appendChild(div);
     });
   }
 
+  // Search filter logic
   searchForm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -110,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderListings(filtered);
   });
 
+  // Reset filter
   document.getElementById("resetFilter")?.addEventListener("click", () => {
     searchForm.reset();
     renderListings(allListings);
