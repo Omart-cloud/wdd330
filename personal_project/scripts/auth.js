@@ -35,3 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// Add this function in auth.js
+async function registerUser(email, password, userType = "client") {
+  try {
+    const response = await fetch("http://localhost:3000/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, userType })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message || "Registration failed");
+
+    alert("Registration successful! Please login.");
+    window.location.href = "login.html";
+  } catch (err) {
+    alert("Registration error: " + err.message);
+  }
+}

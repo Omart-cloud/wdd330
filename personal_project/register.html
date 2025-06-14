@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Housing Agent</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <main class="form-container">
+    <h2>Create an Account</h2>
+    <form id="registerForm">
+      <label for="email">Email:</label>
+      <input type="email" id="regEmail" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="regPassword" required />
+
+      <label for="userType">I am a:</label>
+      <select id="userType">
+        <option value="client">Client</option>
+        <option value="agent">Agent</option>
+      </select>
+
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="login.html">Login here</a>.</p>
+    </form>
+  </main>
+
+  <script src="scripts/register.js"></script>
+</body>
+</html>
