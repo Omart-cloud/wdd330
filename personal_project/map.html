@@ -1,0 +1,28 @@
+<!-- map.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Listings Map</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Map View of All Listings</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="map.html">Map</a>
+    </nav>
+  </header>
+  <main>
+    <div id="map" style="height: 500px; border-radius: 10px;"></div>
+  </main>
+
+  <script src="scripts/allmap.js"></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDutwVT6uumkw42B2OptviTvRYViaR8ohQ&callback=initMap">
+  </script>
+</body>
+</html>
