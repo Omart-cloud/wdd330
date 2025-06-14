@@ -1,3 +1,4 @@
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,18 +8,41 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <header><h1>Dashboard</h1></header>
+  <header>
+    <h1>Agent Dashboard</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="saved.html">Saved</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
   <main>
     <section id="listings">
       <h2>Your Listings</h2>
-      <!-- Listings will be dynamically inserted here -->
+      <div id="listingContainer">
+        <!-- Listings will be rendered here -->
+      </div>
     </section>
+
     <section id="add-listing">
       <h2>Add New Listing</h2>
       <form id="listingForm">
-        <input type="text" placeholder="Property Title" required />
-        <textarea placeholder="Description"></textarea>
-        <input type="file" multiple />
+        <label for="title">Title:</label>
+        <input type="text" id="title" required />
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" required />
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" required />
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4"></textarea>
+
+        <label for="images">Upload Images:</label>
+        <input type="file" id="images" multiple accept="image/*" />
+
         <button type="submit">Add Listing</button>
       </form>
     </section>
