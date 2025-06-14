@@ -60,3 +60,23 @@ app.post("/api/listings", upload.array("images", 5), (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
+app.post("/api/listings", upload.array("images", 5), (req, res) => {
+  const { title, location, price, description, latitude, longitude } = req.body;
+  const imagePaths = req.files.map((file) => `http://localhost:${PORT}/uploads/${file.filename}`);
+
+  const newListing = {
+    id: Date.now(),
+    title,
+    location,
+    price: parseFloat(price),
+    description,
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+    images: imagePaths,
+  };
+
+  listings.push(newListing);
+  res.status(201).json({ message: "Listing saved", listing: newListing });
+});

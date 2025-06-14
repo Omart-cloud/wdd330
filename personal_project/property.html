@@ -1,16 +1,26 @@
+<!-- property.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Property Details - Housing Agent</title>
+  <title>Property Map View</title>
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-  <header><h1>Property Details</h1></header>
-  <main id="propertyDetails">
-    <!-- Property details rendered here -->
+  <header>
+    <h1>Property Location</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+  <main>
+    <div id="map" style="height: 500px; border-radius: 10px;"></div>
   </main>
-  <script src="scripts/listing.js"></script>
+  <script src="scripts/map.js"></script>
+  <script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDutwVT6uumkw42B2OptviTvRYViaR8ohQ&callback=initMap">
+  </script>
 </body>
 </html>

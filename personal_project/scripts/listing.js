@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const listingContainer = document.getElementById("listingContainer");
   const searchForm = document.getElementById("searchForm");
 
-  let allListings = []; // store all listings for filtering
+  let allListings = [];
 
   // Load listings on page load
   fetchListings();
@@ -18,16 +18,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const description = document.getElementById("description").value;
     const images = document.getElementById("images").files;
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("location", location);
-    formData.append("price", price);
-    formData.append("description", description);
-    for (let img of images) {
-      formData.append("images", img);
-    }
-
     try {
+      // Use Google Geocoding API to get coordinates
+      const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=AIzaSyDutwVT6uumkw42B2OptviTvRYViaR8ohQ`;
+      const geoRes = await fetch(geocodeUrl);
+      const geoData = await geoRes.json();
+
+      if (!geoData.results || geoData.results.length === 0) {
+        alert("Unable to determine coordinates for the address.");
+        return;
+      }
+
+      const { lat, lng } = geoData.results[0].geometry.location;
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("location", location);
+      formData.append("price", price);
+      formData.append("latitude", lat);
+      formData.append("longitude", lng);
+      formData.append("description", description);
+      for (let img of images) {
+        formData.append("images", img);
+      }
+
       const response = await fetch("http://localhost:3000/api/listings", {
         method: "POST",
         body: formData,
@@ -44,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Fetch listings and store them for filtering
   async function fetchListings() {
     try {
       const res = await fetch("http://localhost:3000/api/listings");
@@ -56,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Render listings to the page
   function renderListings(listings) {
     listingContainer.innerHTML = "";
 
@@ -74,12 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <p><strong>Price:</strong> ₦${listing.price}</p>
         <p>${listing.description}</p>
         ${listing.images?.map(img => `<img src="${img}" alt="property" width="200">`).join("") || ""}
+        <p><a href="property.html?lat=${listing.latitude}&lng=${listing.longitude}" target="_blank">View on Map</a></p>
       `;
       listingContainer.appendChild(div);
     });
   }
 
-  // Search filter logic
   searchForm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -98,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderListings(filtered);
   });
 
-  // Reset filters
   document.getElementById("resetFilter")?.addEventListener("click", () => {
     searchForm.reset();
     renderListings(allListings);
