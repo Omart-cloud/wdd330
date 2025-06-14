@@ -129,6 +129,51 @@ form button:hover {
   background-color: #f8f8f8;
 }
 
+/* --- Search and Filter Styling --- */
+#search-filter {
+  background: white;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+#search-filter h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#searchForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+#searchForm input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1 1 200px;
+}
+
+#searchForm button {
+  padding: 0.5rem 1rem;
+  background-color: #E67E22;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+#searchForm button:hover {
+  background-color: #d35400;
+}
+
 @media (max-width: 600px) {
   nav {
     display: flex;
@@ -145,6 +190,16 @@ form button:hover {
   }
 
   .btn-cta {
+    width: 100%;
+  }
+
+  #searchForm {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  #searchForm input,
+  #searchForm button {
     width: 100%;
   }
 }
