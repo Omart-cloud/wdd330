@@ -29,14 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       localStorage.setItem("housingUser", JSON.stringify(data.user));
       alert("Login successful!");
-      window.location.href = "dashboard.html";
+      if (data.user.userType === "agent") {
+        window.location.href = "dashboard.html";
+      } else if (data.user.userType === "client") {
+        window.location.href = "client_dashboard.html";
+      } else {
+        window.location.href = "index.html";
+      }
     } catch (error) {
       alert("Error: " + error.message);
     }
   });
 });
 
-// Add this function in auth.js
+// this function is in auth.js also
 async function registerUser(email, password, userType = "client") {
   try {
     const response = await fetch("http://localhost:3000/api/register", {

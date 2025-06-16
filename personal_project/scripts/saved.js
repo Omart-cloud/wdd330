@@ -1,5 +1,3 @@
-// scripts/save.js
-
 document.addEventListener("DOMContentLoaded", () => {
   const savedContainer = document.getElementById("savedListings");
   const saved = JSON.parse(localStorage.getItem("savedListings")) || [];

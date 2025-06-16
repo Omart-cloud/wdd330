@@ -4,6 +4,7 @@ const multer = require("multer");
 const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const PORT = 3000;
@@ -30,6 +31,7 @@ const saveData = (file, data) => {
 // Load existing data
 let listings = loadData("listings.json");
 let chatMessages = loadData("chat.json");
+let users = loadData("users.json");
 
 // Multer setup for image + document uploads
 const storage = multer.diskStorage({
@@ -43,6 +45,76 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
+
+// --- USER AUTHENTICATION ROUTES ---
+
+app.post("/api/register", async (req, res) => {
+  const { email, password, userType } = req.body;
+
+  if (!email || !password || !userType) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  // Check if user already exists
+  const existingUser = users.find(user => user.email === email);
+  if (existingUser) {
+    return res.status(400).json({ message: "Email already registered" });
+  }
+
+  try {
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    const newUser = {
+      id: Date.now(),
+      email,
+      password: hashedPassword,
+      userType,
+      createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+    saveData("users.json", users);
+
+    res.status(201).json({ message: "Registration successful" });
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ message: "Error during registration" });
+  }
+});
+
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  const user = users.find(user => user.email === email);
+  if (!user) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  try {
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        email: user.email,
+        userType: user.userType
+      }
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Error during login" });
+  }
+});
 
 // --- LISTING ROUTES ---
 

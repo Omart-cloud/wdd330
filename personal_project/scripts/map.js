@@ -1,5 +1,3 @@
-// scripts/map.js
-
 function initMap() {
   const propertyLocation = { lat: 7.3775, lng: 3.9470 }; // Example: Ibadan
 

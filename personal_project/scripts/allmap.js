@@ -1,5 +1,3 @@
-// scripts/allmap.js
-
 async function initMap() {
   const defaultCenter = { lat: 7.3775, lng: 3.9470 }; // Fallback center (Ibadan)
   const map = new google.maps.Map(document.getElementById("map"), {
