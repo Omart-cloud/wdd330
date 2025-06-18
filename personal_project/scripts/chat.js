@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatInput = document.getElementById("chatInput");
 
   // Load existing messages from server
-  fetch("http://localhost:3000/api/chat")
+  fetch("https://wdd330-backend-mj9r.onrender.com/api/chat")
     .then(res => res.json())
     .then(messages => {
       messages.forEach(msg => appendMessage(msg));
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!text) return;
 
     try {
-      const response = await fetch("http://localhost:3000/api/chat", {
+      const response = await fetch("https://wdd330-backend-mj9r.onrender.com/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

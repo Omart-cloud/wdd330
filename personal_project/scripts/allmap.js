@@ -6,7 +6,7 @@ async function initMap() {
   });
 
   try {
-    const res = await fetch("http://localhost:3000/api/listings");
+    const res = await fetch("https://wdd330-backend-mj9r.onrender.com/api/listings");
     const listings = await res.json();
 
     listings.forEach((listing) => {

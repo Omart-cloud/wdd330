@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("documents", doc);
       }
 
-      const response = await fetch("http://localhost:3000/api/listings", {
+      const response = await fetch("https://wdd330-backend-mj9r.onrender.com/api/listings", {
         method: "POST",
         body: formData,
       });
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchListings() {
     try {
-      const res = await fetch("http://localhost:3000/api/listings");
+      const res = await fetch("https://wdd330-backend-mj9r.onrender.com/api/listings");
       const listings = await res.json();
       allListings = listings;
       renderListings(allListings);

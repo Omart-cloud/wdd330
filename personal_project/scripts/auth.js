@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch("https://wdd330-backend-mj9r.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // this function is in auth.js also
 async function registerUser(email, password, userType = "client") {
   try {
-    const response = await fetch("http://localhost:3000/api/register", {
+    const response = await fetch("https://wdd330-backend-mj9r.onrender.com/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, userType })

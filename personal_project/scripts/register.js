@@ -11,7 +11,7 @@ document.getElementById("registerForm")?.addEventListener("submit", async functi
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/register", {
+    const response = await fetch("https://wdd330-backend-mj9r.onrender.com/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, userType })
